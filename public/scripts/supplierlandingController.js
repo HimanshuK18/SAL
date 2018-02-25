@@ -1,7 +1,6 @@
 'use strict';
 angular.module('LOCUseCase')
   .controller('supplierlandingController', ['$scope', '$http', '$location', '$rootScope', function ($scope, $http, $location, $rootScope) {
-    var socket = io();
     $scope.origincountry = ["Holland","USA","Singapore","Australia","India"];
     $scope.originplant = [""];
     $scope.destinationcountry = [""];
@@ -228,7 +227,7 @@ angular.module('LOCUseCase')
 
     plotMarkers();
 
-
+    var socket = io();
     setInterval(myfunction, 9000);
       function myfunction() {
         socket.on('realtime message', function (msg) {
