@@ -5,7 +5,11 @@ var morgan = require("morgan");
 var bodyParser = require("body-parser");
 var mongojs = require('mongojs');
 var favicon = require('serve-favicon');
-const address = '0xab4cb6367adcbb464eede7f397c2931a3ddf5937';
+const DBURL = 'mongodb://54.172.10.34:27017/LOC';
+const address = '0x61ac9bf3f53fd719697a9cd17f46c0311bf5c106';
+var NodeURL = "http://54.242.222.243:22000";
+var account = '0xed9d02e382b34818e88b88a309c7fe71e65f419d';
+var PrivateTo = "ROAZBWtSacxXQrOe3FGAqJDyJjFePR5ce4TSIzmJ0Bc=";
 
 var app = express();
 var port = process.env.PORT || 5000;
@@ -41,9 +45,6 @@ var server = app.listen(port, function () {
 
 //Code to push data into the 1 smart contracts(Tx4) related to temprature breach
 var Web3 = require('web3');
-var NodeURL = "http://54.242.222.243:22000";
-var account = '0xed9d02e382b34818e88b88a309c7fe71e65f419d';
-var PrivateTo = "ROAZBWtSacxXQrOe3FGAqJDyJjFePR5ce4TSIzmJ0Bc=";
 var io = require('socket.io').listen(server);
 io.on('connection', function (socket) {
   console.log('a user connected');
@@ -54,6 +55,7 @@ io.on('connection', function (socket) {
           var abi = [{"constant":false,"inputs":[{"name":"TempratureBreached_Data","type":"string"}],"name":"setTempratureBreached","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getTranactiosn1Data","outputs":[{"name":"retVal","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getTempratureBreached","outputs":[{"name":"retVal","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"Tranactiosn1Temprature","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"Tranactiosn1Data","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getTranactiosn1Temprature","outputs":[{"name":"retVal","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"Tranactiosn1Temprature_Data","type":"string"}],"name":"setTranactiosn1Temprature","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"TempratureBreached","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"Tranactiosn1_Data","type":"string"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"}];
        var MyContract = web3.eth.contract(abi).at(address);
       var flag =MyContract.TempratureBreached();
+      console.log(flag);
       if (flag == 'yes') {
         io.emit('realtime message', 'yes');
       }
@@ -63,17 +65,17 @@ io.on('connection', function (socket) {
       else { io.emit('realtime message', 'no'); }
    
     
-      var db = mongojs('mongodb://54.172.10.34:27017/LOC', ['IoTData']);
+      var db = mongojs(DBURL, ['IoTData']);
       try {
         var flag="yes";
         var flagamber="yes";
-        db.IoTData.findOne({ $and: [{ 'deviceId': 'Raspberry Pi-1' }, { 'temperature': { $gt: 28 , $lt: 30 } }] }, function (err, doc) {
+        db.IoTData.findOne({ $and: [{ 'deviceId': 'Raspberry Pi-1' }, { 'temperature': { $gt: 26 , $lt: 30 } }] }, function (err, doc) {
           if (typeof web3 !== 'undefined') { web3 = new Web3(web3.currentProvider); }
           else { web3 = new Web3(new Web3.providers.HttpProvider(NodeURL)); }
           var abi = [{"constant":false,"inputs":[{"name":"TempratureBreached_Data","type":"string"}],"name":"setTempratureBreached","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getTranactiosn1Data","outputs":[{"name":"retVal","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getTempratureBreached","outputs":[{"name":"retVal","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"Tranactiosn1Temprature","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"Tranactiosn1Data","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getTranactiosn1Temprature","outputs":[{"name":"retVal","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"Tranactiosn1Temprature_Data","type":"string"}],"name":"setTranactiosn1Temprature","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"TempratureBreached","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"Tranactiosn1_Data","type":"string"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"}];
           var MyContract = web3.eth.contract(abi).at(address);
           if (doc) {
-             flagamber = MyContract.TempratureBreached();
+             flagamber = MyContract.TempratureBreached();             
             if (flagamber != 'yes') { 
               MyContract.setTempratureBreached('almost', { from: web3.eth.coinbase, gas: 60000000, privateFor: [PrivateTo] });
              }
@@ -151,7 +153,7 @@ function SALDemoCode(path , bitecode,abidef) {
           console.log("Contract mined! Address: " + contract.address);
           //Save all the contract details in MongoDB
           var mongojs = require('mongojs');
-          var db = mongojs('mongodb://54.172.10.34:27017/LOC', ['SmartContractSAL']);
+          var db = mongojs(DBURL, ['SmartContractSAL']);
           console.log(txcount);
           txcount++;
           var cData = { 'bolid': 'tX' + txcount.toString(), 'abi': abiDefinition, 'contractaddress': contractaddress, 'contracthash': transactionHash };
