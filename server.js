@@ -46,10 +46,9 @@ var server = app.listen(port, function () {
 //Code to push data into the 1 smart contracts(Tx4) related to temprature breach
 var Web3 = require('web3');
 var io = require('socket.io').listen(server);
-io.on('connection', function (socket) {
-  console.log('a user connected');
-  socket.on('realtime message', function (msg) {
-    console.log('message:' + msg );
+io.on('connection', SendTempratureData);
+setInterval(SendTempratureData, 9000);
+function SendTempratureData(){
       if (typeof web3 !== 'undefined') { web3 = new Web3(web3.currentProvider); }
       else { web3 = new Web3(new Web3.providers.HttpProvider(NodeURL)); }
           var abi = [{"constant":false,"inputs":[{"name":"TempratureBreached_Data","type":"string"}],"name":"setTempratureBreached","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getTranactiosn1Data","outputs":[{"name":"retVal","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getTempratureBreached","outputs":[{"name":"retVal","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"Tranactiosn1Temprature","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"Tranactiosn1Data","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getTranactiosn1Temprature","outputs":[{"name":"retVal","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"Tranactiosn1Temprature_Data","type":"string"}],"name":"setTranactiosn1Temprature","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"TempratureBreached","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"Tranactiosn1_Data","type":"string"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"}];
@@ -63,8 +62,6 @@ io.on('connection', function (socket) {
         io.emit('realtime message', 'almost');
       }
       else { io.emit('realtime message', 'no'); }
-   
-    
       var db = mongojs(DBURL, ['IoTData']);
       try {
         var flag="yes";
@@ -98,8 +95,8 @@ io.on('connection', function (socket) {
       catch (err) {
         console.log('Something went wrong:' + err)
       }
-  });
-});
+  
+}
 
 //Code to publish all the 6 transctions into blockchain contracts
 var tcount;
