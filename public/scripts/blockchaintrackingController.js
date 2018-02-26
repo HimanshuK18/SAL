@@ -2,8 +2,7 @@
 angular.module('LOCUseCase')
   .controller('blockchaintrackingController', ['$scope', '$http', '$location', '$rootScope', function ($scope, $http, $location, $rootScope) {
 
-    var socket = io();
-    setTimeout(myfunction, 5000);
+    
     $("#trace").click(function(){
       $('#track').removeClass('active');
       $('#trace').addClass('active');
@@ -12,7 +11,8 @@ angular.module('LOCUseCase')
       $('.trace-shipment-icon').css('background-image' ,'url(../image/trace_shipment_hover.png)');
       $('.track-shipment-icon').css('background-image' , 'url(../image/track_shipment_normal.png)');
     });
-    function myfunction() {
+    var socket = io();
+    //setTimeout(myfunction, 5000);
       socket.on('realtime message', function (msg) {
         if (msg == 'yes') {
           $('#tx4').attr("src","/image/Dot_red.png");
@@ -31,7 +31,5 @@ angular.module('LOCUseCase')
           document.getElementById("imgarrow2").src="/Images/garrow.png";
         }
       });
-      socket.emit('chat message', 'this is the message');
-    }
   }]);
 

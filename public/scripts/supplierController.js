@@ -12,8 +12,7 @@ $scope.t1hide=function()
 }
 
 var socket = io();
-setInterval(myfunction, 7000);
-function myfunction() {
+//setInterval(myfunction, 7000);
   socket.on('realtime message', function (msg) {
     if (msg == 'yes') {
     $('#tranaction4').attr("src","/image/Dot_red.png");
@@ -28,8 +27,6 @@ function myfunction() {
       $('#tranaction4').attr("src","/image/Dot_green.png");  
     }
   });
-  socket.emit('realtime message', 'this is the message');
-}
 
 $('#track').click(function(){
   $('#dash').removeClass('active');

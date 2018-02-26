@@ -39,11 +39,7 @@ angular.module('LOCUseCase', ['ngStorage','ngRoute','ngAnimate','angular-loading
         when('/blockchaintracking', {
             templateUrl: 'partials/blockchaintracking.html',
             controller: 'blockchaintrackingController'
-        }).        
-        when('/transit3pl', {
-            templateUrl: 'partials/transit3pl.html',
-            controller: '3plController'
-        }).
+        }).                
         when('/transitsupplier', {
             templateUrl: 'partials/transitsupplier.html',
             controller: 'supplierController'
