@@ -27,8 +27,8 @@ angular.module('LOCUseCase')
         }
         else
          {
-          document.getElementById("divTx4").style.backgroundColor = "#73AD21";
-          document.getElementById("imgarrow2").src="/Images/garrow.png";
+          $('#tx4').attr("src","/image/Dot_green.png"), 
+          $('#tranaction4').attr("src","/image/Dot_green.png"); 
         }
       });
   }]);
