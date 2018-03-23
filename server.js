@@ -47,7 +47,7 @@ var server = app.listen(port, function () {
 //Code to push data into the 1 smart contracts(Tx4) related to temprature breach
 var Web3 = require('web3');
 var io = require('socket.io').listen(server);
-io.on('connection', SendTempratureData);
+
 setInterval(SendTempratureData, 9000);
 function SendTempratureData(){
       if (typeof web3 !== 'undefined') { web3 = new Web3(web3.currentProvider); }
