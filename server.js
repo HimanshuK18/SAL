@@ -7,8 +7,8 @@ var mongojs = require('mongojs');
 var favicon = require('serve-favicon');
 var dbUrl = require("./config/db");
 const DBURL = dbUrl.url;
-const address = '0x61ac9bf3f53fd719697a9cd17f46c0311bf5c106';
-var NodeURL = "http://54.242.222.243:22000";
+const address = '0xb81c1fea49fab3687941a4fb31027eabd98e66dc';
+var NodeURL = "http://13.126.166.123:22000";
 var account = '0xed9d02e382b34818e88b88a309c7fe71e65f419d';
 var PrivateTo = "ROAZBWtSacxXQrOe3FGAqJDyJjFePR5ce4TSIzmJ0Bc=";
 
@@ -103,7 +103,7 @@ function SendTempratureData(){
 var tcount;
 for (tcount = 1; tcount <= 6; tcount++) {
   var time = tcount;
-  time = time * tcount * 20000;
+  time = time * tcount * 200;
   console.log(time);
   setTimeout(myFunction1, time);
   function myFunction1() {
