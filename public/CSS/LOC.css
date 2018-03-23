@@ -2583,7 +2583,7 @@ header{
 	display: inline-block;
 }
 .welcome-text h2{
-	font-size: 24px;
+	font-size: 30px;
     font-family: inherit;
     margin-bottom: 0px;
     padding: 10px 20px;
@@ -2595,7 +2595,7 @@ header{
 	display: inline-block;
 }
 .header-text h2{
-	font-size: 24px;
+	font-size: 30px;
     font-family: inherit;
     margin-bottom: 0px;
     padding: 10px 20px;
@@ -2766,11 +2766,13 @@ header{
 }
 .setposition{
 	float:right;
-	margin-top: -465px;
+	margin-top: -500px;
 }
 
 .bgimg {
     background-image: url('../image/Path 36.png');
+	background-repeat: no-repeat !important;
+	background-size: cover;
 }
 .bgimgwave {
 	background-image: url('../image/Path 77.png');
@@ -2805,8 +2807,8 @@ header{
     margin-left: 98PX;
 }
 .scimginrow{
-	height:60px;
-	margin-right:69px;
+	height:70px;
+	margin-right:102px;
 	margin-top:20px;
 }
 .dots{
@@ -2816,30 +2818,35 @@ header{
     margin-left: -5px;
 }
 .gdots{
-	margin-right: -17px;
+	margin-right: -25px;
     margin-top: 86px;
     height: 17px;
-    margin-left: 152px;
+    margin-left: 199px;
 }
 .sclabel{
 	font-size: 14px;
-	margin-right: 40px;
+	margin-right: 82px;
 	margin-top: 10px; 
 }
 .whiteline{
-	width: 129px;
+	width: 170px;
     display: inline-block;
     margin-left: -110px;
 	margin-bottom: -8px;
 	color: red;
 }
 .rectangle{
-    width:130px;
+    width:145px;
 	/*height:150px; old value */
 	height:200px;
     background:#eaeaea;
 	border-radius: 25px;
 	display: inline-block;
 	text-align: center;
-	margin-left: 20px;
+	margin-left: 50px;
+}
+
+.truck{
+	height:50px;
+	width:85px;
 }
